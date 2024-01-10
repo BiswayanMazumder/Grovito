@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "424805323714",
+    "project_id": "quantumharmony-85046",
+    "storage_bucket": "quantumharmony-85046.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:424805323714:android:7cf33e7491feaef67f3c5b",
+        "android_client_info": {
+          "package_name": "com.example.whatscall"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0h50SR_UaBEhS-SATxzOddE98NBbaNQw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
