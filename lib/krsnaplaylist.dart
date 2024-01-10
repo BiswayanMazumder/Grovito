@@ -38,20 +38,20 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   bool isLikedplaylist = false;
-  bool isykwimhidden=false;
-  bool iskhattahidden=false;
+  bool isykwimhidden = false;
+  bool iskhattahidden = false;
   bool ykwimHidden = false;
-  bool khattaHidden=false;
-  bool nocapHidden=false;
-  bool wohraathidden=false;
+  bool khattaHidden = false;
+  bool nocapHidden = false;
+  bool wohraathidden = false;
   bool ykwimLiked = false; // Initialize with the default value
-  bool khattaflowlikedd=false;
-  bool wohraatlike=false;
-  bool machanyenge4liked=false;
-  bool holaamigoliked=false;
-  bool nocapliked=false;
-  bool iguessliked=false;
-  bool beenawhileliked=false;
+  bool khattaflowlikedd = false;
+  bool wohraatlike = false;
+  bool machanyenge4liked = false;
+  bool holaamigoliked = false;
+  bool nocapliked = false;
+  bool iguessliked = false;
+  bool beenawhileliked = false;
   Future<void> beenawhileLiked() async {
     final user = _auth.currentUser;
 
@@ -81,6 +81,7 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
       }
     }
   }
+
   Future<void> fetchbeenawhilelikeStatus() async {
     final user = _auth.currentUser;
 
@@ -99,6 +100,7 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
       }
     }
   }
+
   Future<void> iguessLiked() async {
     final user = _auth.currentUser;
 
@@ -128,6 +130,7 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
       }
     }
   }
+
   Future<void> fetchiguesslikeStatus() async {
     final user = _auth.currentUser;
 
@@ -146,6 +149,7 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
       }
     }
   }
+
   Future<void> nocapLiked() async {
     final user = _auth.currentUser;
 
@@ -175,6 +179,7 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
       }
     }
   }
+
   Future<void> fetchnocaplikeStatus() async {
     final user = _auth.currentUser;
 
@@ -193,6 +198,7 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
       }
     }
   }
+
   Future<void> holaamigoLiked() async {
     final user = _auth.currentUser;
 
@@ -222,6 +228,7 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
       }
     }
   }
+
   Future<void> fetchholaamigolikeStatus() async {
     final user = _auth.currentUser;
 
@@ -240,6 +247,7 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
       }
     }
   }
+
   Future<void> machayengeLiked() async {
     final user = _auth.currentUser;
 
@@ -269,6 +277,7 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
       }
     }
   }
+
   Future<void> fetchmachayenge4likeStatus() async {
     final user = _auth.currentUser;
 
@@ -287,6 +296,7 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
       }
     }
   }
+
   Future<void> wohraatLiked() async {
     final user = _auth.currentUser;
 
@@ -316,6 +326,7 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
       }
     }
   }
+
   Future<void> fetchwohratLikeStatus() async {
     final user = _auth.currentUser;
 
@@ -334,6 +345,7 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
       }
     }
   }
+
   Future<void> khattaLike() async {
     final user = _auth.currentUser;
 
@@ -363,6 +375,7 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
       }
     }
   }
+
   Future<void> fetchkhattaLikeStatus() async {
     final user = _auth.currentUser;
 
@@ -381,6 +394,7 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
       }
     }
   }
+
   Future<void> ykwimLike() async {
     final user = _auth.currentUser;
 
@@ -433,37 +447,40 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
   Future<void> fetchworaathidden() async {
     final user = _auth.currentUser;
     final docsnap =
-    await _firestore.collection('Wo Raat hidden').doc(user!.uid).get();
+        await _firestore.collection('Wo Raat hidden').doc(user!.uid).get();
     if (docsnap.exists) {
       setState(() {
         nocapHidden = docsnap.data()?['Wo Raat Hidden'] ?? false;
       });
     }
   }
+
   Future<void> fetchnocaphidden() async {
     final user = _auth.currentUser;
     final docsnap =
-    await _firestore.collection('No Cap hidden').doc(user!.uid).get();
+        await _firestore.collection('No Cap hidden').doc(user!.uid).get();
     if (docsnap.exists) {
       setState(() {
         nocapHidden = docsnap.data()?['NOCapHidden'] ?? false;
       });
     }
   }
+
   Future<void> fetchykwimhidden() async {
     final user = _auth.currentUser;
     final docsnap =
-    await _firestore.collection('YKWIM hidden').doc(user!.uid).get();
+        await _firestore.collection('YKWIM hidden').doc(user!.uid).get();
     if (docsnap.exists) {
       setState(() {
         isykwimhidden = docsnap.data()?['YKWIMHidden'] ?? false;
       });
     }
   }
+
   Future<void> fetchkhattahidden() async {
     final user = _auth.currentUser;
     final docsnap =
-    await _firestore.collection('Khatta Flow hidden').doc(user!.uid).get();
+        await _firestore.collection('Khatta Flow hidden').doc(user!.uid).get();
     if (docsnap.exists) {
       setState(() {
         iskhattahidden = docsnap.data()?['KhattaHidden'] ?? false;
@@ -532,7 +549,7 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
 
     if (user != null) {
       final docRef =
-      _firestore.collection('KRSNA Playlist Liked').doc(user.uid);
+          _firestore.collection('KRSNA Playlist Liked').doc(user.uid);
 
       // Get the current document snapshot
       final docSnapshot = await docRef.get();
@@ -582,7 +599,7 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
 
     if (user != null) {
       final docRef =
-      _firestore.collection('KRSNA Playlist Liked').doc(user.uid);
+          _firestore.collection('KRSNA Playlist Liked').doc(user.uid);
 
       // Get the current document snapshot
       final docSnapshot = await docRef.get();
@@ -676,8 +693,8 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
                                 radius: 15,
                                 backgroundImage: NetworkImage(
                                     'https://firebasestorage.googleapis.com/v0/b/quantumharmony-85046.appspot.com'
-                                        '/o/172876e3ef491d0bd9e9de1b0ded5233-removebg-preview.png?alt=media&token=4a1a5a3c'
-                                        '-d53a-433d-8619-7e851aeee650'),
+                                    '/o/172876e3ef491d0bd9e9de1b0ded5233-removebg-preview.png?alt=media&token=4a1a5a3c'
+                                    '-d53a-433d-8619-7e851aeee650'),
                               ),
                               SizedBox(
                                 width: 5,
@@ -716,9 +733,7 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
                                 backgroundColor: Colors.transparent,
                                 child: IconButton(
                                   icon: Icon(
-                                    isLikedplaylist
-                                        ? Icons.check
-                                        : Icons.add,
+                                    isLikedplaylist ? Icons.check : Icons.add,
                                     color: Colors.white,
                                     size: 30,
                                   ),
@@ -730,43 +745,63 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
                               SizedBox(
                                 width: 5,
                               ),
-                              Text('${isLikedplaylist?'Added to Playlist':'Add To Playlist'}',style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white
-                              ),)
+                              Text(
+                                '${isLikedplaylist ? 'Added to Playlist' : 'Add To Playlist'}',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              )
                             ],
                           ),
                           SizedBox(
                             height: 30,
                           ),
-                          if(ykwimLiked || khattaflowlikedd || wohraatlike ||machanyenge4liked || holaamigoliked || nocapliked || iguessliked || beenawhileliked)
+                          if (ykwimLiked ||
+                              khattaflowlikedd ||
+                              wohraatlike ||
+                              machanyenge4liked ||
+                              holaamigoliked ||
+                              nocapliked ||
+                              iguessliked ||
+                              beenawhileliked)
                             Center(
-                                child: Text('Liked Songs',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20),
-                                )
-                            ),
-                          if(ykwimLiked)
+                                child: Text(
+                              'Liked Songs',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
+                            )),
+                          if (ykwimLiked)
                             Column(
                               children: [
-
                                 SizedBox(
                                   height: 30,
                                 ),
                                 Row(
                                   children: [
-                                    Image(image: NetworkImage('https://i.scdn.co/image/ab67616d0000b2737162dc7fbd69d82805a2aab1',
-                                    ),
+                                    Image(
+                                      image: NetworkImage(
+                                        'https://i.scdn.co/image/ab67616d0000b2737162dc7fbd69d82805a2aab1',
+                                      ),
                                       height: 100,
                                       width: 100,
                                     ),
                                     SizedBox(
                                       width: 5,
                                     ),
-                                    Text('Ykwim\nKaran Aujla, KRSNA,Mehar Vaani',style: TextStyle(color: Colors.black,
-                                        fontWeight: FontWeight.w500),),
+                                    Text(
+                                      'Ykwim\nKaran Aujla, KRSNA,Mehar Vaani',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500),
+                                    ),
                                     Spacer(),
                                     IconButton(
                                       icon: Icon(
-                                        ykwimLiked ? Icons.favorite : Icons.favorite_border,
+                                        ykwimLiked
+                                            ? Icons.favorite
+                                            : Icons.favorite_border,
                                         color: Colors.green,
                                         size: 30,
                                       ),
@@ -782,29 +817,36 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
                                 ),
                               ],
                             ),
-                          if(khattaflowlikedd)
+                          if (khattaflowlikedd)
                             Column(
                               children: [
-
                                 SizedBox(
                                   height: 30,
                                 ),
                                 Row(
                                   children: [
-                                    Image(image: NetworkImage('https://i.scdn.co/image/ab67616d0000b273b7b544e5241b69574edc814e',
-                                    ),
+                                    Image(
+                                      image: NetworkImage(
+                                        'https://i.scdn.co/image/ab67616d0000b273b7b544e5241b69574edc814e',
+                                      ),
                                       height: 100,
                                       width: 100,
                                     ),
                                     SizedBox(
                                       width: 5,
                                     ),
-                                    Text('Khatta Flow\nSeedhe Maut, KRSNA',style: TextStyle(color: Colors.black,
-                                        fontWeight: FontWeight.w500),),
+                                    Text(
+                                      'Khatta Flow\nSeedhe Maut, KRSNA',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500),
+                                    ),
                                     Spacer(),
                                     IconButton(
                                       icon: Icon(
-                                        khattaflowlikedd ? Icons.favorite : Icons.favorite_border,
+                                        khattaflowlikedd
+                                            ? Icons.favorite
+                                            : Icons.favorite_border,
                                         color: Colors.green,
                                         size: 30,
                                       ),
@@ -820,29 +862,36 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
                                 ),
                               ],
                             ),
-                          if(wohraatlike)
+                          if (wohraatlike)
                             Column(
                               children: [
-
                                 SizedBox(
                                   height: 30,
                                 ),
                                 Row(
                                   children: [
-                                    Image(image: NetworkImage('https://i.scdn.co/image/ab67616d0000b2738eeefdbfd14ad10510ba6c86',
-                                    ),
+                                    Image(
+                                      image: NetworkImage(
+                                        'https://i.scdn.co/image/ab67616d0000b2738eeefdbfd14ad10510ba6c86',
+                                      ),
                                       height: 100,
                                       width: 100,
                                     ),
                                     SizedBox(
                                       width: 5,
                                     ),
-                                    Text('Woh Raat\nRaftaar, KRSNA',style: TextStyle(color: Colors.black,
-                                        fontWeight: FontWeight.w500),),
+                                    Text(
+                                      'Woh Raat\nRaftaar, KRSNA',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500),
+                                    ),
                                     Spacer(),
                                     IconButton(
                                       icon: Icon(
-                                        wohraatlike ? Icons.favorite : Icons.favorite_border,
+                                        wohraatlike
+                                            ? Icons.favorite
+                                            : Icons.favorite_border,
                                         color: Colors.green,
                                         size: 30,
                                       ),
@@ -858,29 +907,36 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
                                 ),
                               ],
                             ),
-                          if(machanyenge4liked)
+                          if (machanyenge4liked)
                             Column(
                               children: [
-
                                 SizedBox(
                                   height: 30,
                                 ),
                                 Row(
                                   children: [
-                                    Image(image: NetworkImage('https://i.scdn.co/image/ab67616d0000b2734e7bd9650368c95ed545b1d3',
-                                    ),
+                                    Image(
+                                      image: NetworkImage(
+                                        'https://i.scdn.co/image/ab67616d0000b2734e7bd9650368c95ed545b1d3',
+                                      ),
                                       height: 100,
                                       width: 100,
                                     ),
                                     SizedBox(
                                       width: 5,
                                     ),
-                                    Text('Machayenge 4\nKRSNA',style: TextStyle(color: Colors.black,
-                                        fontWeight: FontWeight.w500),),
+                                    Text(
+                                      'Machayenge 4\nKRSNA',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500),
+                                    ),
                                     Spacer(),
                                     IconButton(
                                       icon: Icon(
-                                        machanyenge4liked ? Icons.favorite : Icons.favorite_border,
+                                        machanyenge4liked
+                                            ? Icons.favorite
+                                            : Icons.favorite_border,
                                         color: Colors.green,
                                         size: 30,
                                       ),
@@ -896,29 +952,36 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
                                 ),
                               ],
                             ),
-                          if(holaamigoliked)
+                          if (holaamigoliked)
                             Column(
                               children: [
-
                                 SizedBox(
                                   height: 30,
                                 ),
                                 Row(
                                   children: [
-                                    Image(image: NetworkImage('https://i.scdn.co/image/ab67616d0000b273843596e5677ecc71fee1c340',
-                                    ),
+                                    Image(
+                                      image: NetworkImage(
+                                        'https://i.scdn.co/image/ab67616d0000b273843596e5677ecc71fee1c340',
+                                      ),
                                       height: 100,
                                       width: 100,
                                     ),
                                     SizedBox(
                                       width: 5,
                                     ),
-                                    Text('Hola Amigo\nSeedhe Maut, KRSNA, Umair',style: TextStyle(color: Colors.black,
-                                        fontWeight: FontWeight.w500),),
+                                    Text(
+                                      'Hola Amigo\nSeedhe Maut, KRSNA, Umair',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500),
+                                    ),
                                     Spacer(),
                                     IconButton(
                                       icon: Icon(
-                                        holaamigoliked ? Icons.favorite : Icons.favorite_border,
+                                        holaamigoliked
+                                            ? Icons.favorite
+                                            : Icons.favorite_border,
                                         color: Colors.green,
                                         size: 30,
                                       ),
@@ -934,29 +997,36 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
                                 ),
                               ],
                             ),
-                          if(nocapliked)
+                          if (nocapliked)
                             Column(
                               children: [
-
                                 SizedBox(
                                   height: 30,
                                 ),
                                 Row(
                                   children: [
-                                    Image(image: NetworkImage('https://i.scdn.co/image/ab67616d0000b2734c6edea22082734e5683c7b9',
-                                    ),
+                                    Image(
+                                      image: NetworkImage(
+                                        'https://i.scdn.co/image/ab67616d0000b2734c6edea22082734e5683c7b9',
+                                      ),
                                       height: 100,
                                       width: 100,
                                     ),
                                     SizedBox(
                                       width: 5,
                                     ),
-                                    Text('No Cap\nKRSNA',style: TextStyle(color: Colors.black,
-                                        fontWeight: FontWeight.w500),),
+                                    Text(
+                                      'No Cap\nKRSNA',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500),
+                                    ),
                                     Spacer(),
                                     IconButton(
                                       icon: Icon(
-                                        nocapliked ? Icons.favorite : Icons.favorite_border,
+                                        nocapliked
+                                            ? Icons.favorite
+                                            : Icons.favorite_border,
                                         color: Colors.green,
                                         size: 30,
                                       ),
@@ -972,29 +1042,36 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
                                 ),
                               ],
                             ),
-                          if(iguessliked)
+                          if (iguessliked)
                             Column(
                               children: [
-
                                 SizedBox(
                                   height: 30,
                                 ),
                                 Row(
                                   children: [
-                                    Image(image: NetworkImage('https://i.scdn.co/image/ab67616d0000b273a29f8977d3f13760d01332e0',
-                                    ),
+                                    Image(
+                                      image: NetworkImage(
+                                        'https://i.scdn.co/image/ab67616d0000b273a29f8977d3f13760d01332e0',
+                                      ),
                                       height: 100,
                                       width: 100,
                                     ),
                                     SizedBox(
                                       width: 5,
                                     ),
-                                    Text('I Guess\nKRSNA',style: TextStyle(color: Colors.black,
-                                        fontWeight: FontWeight.w500),),
+                                    Text(
+                                      'I Guess\nKRSNA',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500),
+                                    ),
                                     Spacer(),
                                     IconButton(
                                       icon: Icon(
-                                        iguessliked ? Icons.favorite : Icons.favorite_border,
+                                        iguessliked
+                                            ? Icons.favorite
+                                            : Icons.favorite_border,
                                         color: Colors.green,
                                         size: 30,
                                       ),
@@ -1010,29 +1087,36 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
                                 ),
                               ],
                             ),
-                          if(beenawhileliked)
+                          if (beenawhileliked)
                             Column(
                               children: [
-
                                 SizedBox(
                                   height: 30,
                                 ),
                                 Row(
                                   children: [
-                                    Image(image: NetworkImage('https://i.scdn.co/image/ab67616d0000b2732d1d2bad9d7c2e4e79579648',
-                                    ),
+                                    Image(
+                                      image: NetworkImage(
+                                        'https://i.scdn.co/image/ab67616d0000b2732d1d2bad9d7c2e4e79579648',
+                                      ),
                                       height: 100,
                                       width: 100,
                                     ),
                                     SizedBox(
                                       width: 5,
                                     ),
-                                    Text('Been a While\nKRSNA, Talha Anjum, Umair',style: TextStyle(color: Colors.black,
-                                        fontWeight: FontWeight.w500),),
+                                    Text(
+                                      'Been a While\nKRSNA, Talha Anjum, Umair',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500),
+                                    ),
                                     Spacer(),
                                     IconButton(
                                       icon: Icon(
-                                        beenawhileliked ? Icons.favorite : Icons.favorite_border,
+                                        beenawhileliked
+                                            ? Icons.favorite
+                                            : Icons.favorite_border,
                                         color: Colors.green,
                                         size: 30,
                                       ),
@@ -1052,7 +1136,13 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
                             height: 10,
                           ),
                           Center(
-                            child: Text('Songs',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20),),
+                            child: Text(
+                              'Songs',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
+                            ),
                           ),
                           SizedBox(
                             height: 30,
@@ -1062,21 +1152,33 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
                               SizedBox(
                                 width: 5,
                               ),
-                              Image(image: NetworkImage('https://i.scdn.co/image/ab67616d0000b2737162dc7fbd69d82805a2aab1',
-                              ),
+                              Image(
+                                image: NetworkImage(
+                                  'https://i.scdn.co/image/ab67616d0000b2737162dc7fbd69d82805a2aab1',
+                                ),
                                 height: 100,
                                 width: 100,
                               ),
-
-                              TextButton(onPressed: ()async{
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => Ykwim(),));
-                              },
-                                  child:Text('Ykwim\nKaran Aujla, KRSNA',style: TextStyle(color: Colors.black,
-                                  fontWeight: FontWeight.bold),)),
+                              TextButton(
+                                  onPressed: () async {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Ykwim(),
+                                        ));
+                                  },
+                                  child: Text(
+                                    'Ykwim\nKaran Aujla, KRSNA',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  )),
                               Spacer(),
                               IconButton(
                                 icon: Icon(
-                                  ykwimLiked ? Icons.favorite : Icons.favorite_border,
+                                  ykwimLiked
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
                                   color: Colors.green,
                                   size: 30,
                                 ),
@@ -1085,7 +1187,6 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
                                   fetchYkwimLikeStatus();
                                 },
                               ),
-                              
                             ],
                           ),
                           SizedBox(
@@ -1096,23 +1197,36 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
                               SizedBox(
                                 width: 5,
                               ),
-                              Image(image: NetworkImage('https://i.scdn.co/image/ab67616d0000b273b7b544e5241b69574edc814e',
-                              ),
+                              Image(
+                                image: NetworkImage(
+                                  'https://i.scdn.co/image/ab67616d0000b273b7b544e5241b69574edc814e',
+                                ),
                                 height: 100,
                                 width: 100,
                               ),
                               SizedBox(
                                 width: 10,
                               ),
-                              TextButton(onPressed: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => Khattaflow(),));
-                              },
-                                  child:Text('Khatta Flow\nSeedhe Maut, KRSNA',style: TextStyle(color: Colors.black,
-                                      fontWeight: FontWeight.bold),)),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Khattaflow(),
+                                        ));
+                                  },
+                                  child: Text(
+                                    'Khatta Flow\nSeedhe Maut, KRSNA',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  )),
                               Spacer(),
                               IconButton(
                                 icon: Icon(
-                                  khattaflowlikedd ? Icons.favorite : Icons.favorite_border,
+                                  khattaflowlikedd
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
                                   color: Colors.green,
                                   size: 30,
                                 ),
@@ -1121,7 +1235,6 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
                                   fetchkhattaLikeStatus();
                                 },
                               ),
-                              
                             ],
                           ),
                           SizedBox(
@@ -1132,24 +1245,35 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
                               SizedBox(
                                 width: 5,
                               ),
-                              Image(image: NetworkImage('https://i.scdn.co/image/ab67616d0000b2738eeefdbfd14ad10510ba6c86',
-                              ),
+                              Image(
+                                image: NetworkImage(
+                                  'https://i.scdn.co/image/ab67616d0000b2738eeefdbfd14ad10510ba6c86',
+                                ),
                                 height: 100,
                                 width: 100,
                               ),
                               SizedBox(
                                 width: 10,
                               ),
-
-                              TextButton(onPressed: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => WohRaat()));
-                              },
-                                  child:Text('Woh Raat\nRaftaar, KRSNA',style: TextStyle(color: Colors.black,
-                                      fontWeight: FontWeight.bold),)),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => WohRaat()));
+                                  },
+                                  child: Text(
+                                    'Woh Raat\nRaftaar, KRSNA',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  )),
                               Spacer(),
                               IconButton(
                                 icon: Icon(
-                                  wohraatlike ? Icons.favorite : Icons.favorite_border,
+                                  wohraatlike
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
                                   color: Colors.green,
                                   size: 30,
                                 ),
@@ -1158,7 +1282,6 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
                                   fetchwohratLikeStatus();
                                 },
                               ),
-                              
                             ],
                           ),
                           SizedBox(
@@ -1169,23 +1292,36 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
                               SizedBox(
                                 width: 5,
                               ),
-                              Image(image: NetworkImage('https://i.scdn.co/image/ab67616d0000b2734e7bd9650368c95ed545b1d3',
-                              ),
+                              Image(
+                                image: NetworkImage(
+                                  'https://i.scdn.co/image/ab67616d0000b2734e7bd9650368c95ed545b1d3',
+                                ),
                                 height: 100,
                                 width: 100,
                               ),
                               SizedBox(
                                 width: 10,
                               ),
-                              TextButton(onPressed: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => Machayenge4()));
-                              },
-                                  child:Text('Machayenge 4\nKRSNA',style: TextStyle(color: Colors.black,
-                                      fontWeight: FontWeight.bold),)),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                Machayenge4()));
+                                  },
+                                  child: Text(
+                                    'Machayenge 4\nKRSNA',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  )),
                               Spacer(),
                               IconButton(
                                 icon: Icon(
-                                  machanyenge4liked? Icons.favorite : Icons.favorite_border,
+                                  machanyenge4liked
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
                                   color: Colors.green,
                                   size: 30,
                                 ),
@@ -1204,23 +1340,35 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
                               SizedBox(
                                 width: 5,
                               ),
-                              Image(image: NetworkImage('https://i.scdn.co/image/ab67616d0000b273843596e5677ecc71fee1c340',
-                              ),
+                              Image(
+                                image: NetworkImage(
+                                  'https://i.scdn.co/image/ab67616d0000b273843596e5677ecc71fee1c340',
+                                ),
                                 height: 100,
                                 width: 100,
                               ),
                               SizedBox(
                                 width: 10,
                               ),
-                              TextButton(onPressed: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => HolaAmigo()));
-                              },
-                                  child:Text('Hola Amigo\nKRSNA, Seedhe Maut, Umair',style: TextStyle(color: Colors.black,
-                                      fontWeight: FontWeight.bold),)),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => HolaAmigo()));
+                                  },
+                                  child: Text(
+                                    'Hola Amigo\nKRSNA, Seedhe Maut, Umair',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  )),
                               Spacer(),
                               IconButton(
                                 icon: Icon(
-                                  holaamigoliked ? Icons.favorite : Icons.favorite_border,
+                                  holaamigoliked
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
                                   color: Colors.green,
                                   size: 30,
                                 ),
@@ -1229,7 +1377,6 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
                                   fetchholaamigolikeStatus();
                                 },
                               ),
-
                             ],
                           ),
                           SizedBox(
@@ -1240,23 +1387,36 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
                               SizedBox(
                                 width: 5,
                               ),
-                              Image(image: NetworkImage('https://i.scdn.co/image/ab67616d0000b2732d1d2bad9d7c2e4e79579648',
-                              ),
+                              Image(
+                                image: NetworkImage(
+                                  'https://i.scdn.co/image/ab67616d0000b2732d1d2bad9d7c2e4e79579648',
+                                ),
                                 height: 100,
                                 width: 100,
                               ),
                               SizedBox(
                                 width: 10,
                               ),
-                              TextButton(onPressed: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => Beenawhile()));
-                              },
-                                  child:Text('Been a While\nKRSNA, Talha Anjum, Umair',style: TextStyle(color: Colors.black,
-                                      fontWeight: FontWeight.bold),)),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                Beenawhile()));
+                                  },
+                                  child: Text(
+                                    'Been a While\nKRSNA, Talha Anjum, Umair',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  )),
                               Spacer(),
                               IconButton(
                                 icon: Icon(
-                                  beenawhileliked ? Icons.favorite : Icons.favorite_border,
+                                  beenawhileliked
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
                                   color: Colors.green,
                                   size: 30,
                                 ),
@@ -1268,40 +1428,52 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
                             ],
                           ),
                           SizedBox(
-                      height: 50,
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Image(image: NetworkImage('https://i.scdn.co/image/ab67616d0000b273a29f8977d3f13760d01332e0',
-                        ),
-                          height: 100,
-                          width: 100,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        TextButton(onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => IGuess()));
-                        },
-                            child:Text('I Guess\nKRSNA',style: TextStyle(color: Colors.black,
-                                fontWeight: FontWeight.bold),)),
-                        Spacer(),
-                        IconButton(
-                          icon: Icon(
-                            iguessliked ? Icons.favorite : Icons.favorite_border,
-                            color: Colors.green,
-                            size: 30,
+                            height: 50,
                           ),
-                          onPressed: () {
-                            iguessLiked();
-                            fetchiguesslikeStatus();
-                          },
-                        ),
-                      ],
-                    ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Image(
+                                image: NetworkImage(
+                                  'https://i.scdn.co/image/ab67616d0000b273a29f8977d3f13760d01332e0',
+                                ),
+                                height: 100,
+                                width: 100,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => IGuess()));
+                                  },
+                                  child: Text(
+                                    'I Guess\nKRSNA',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                              Spacer(),
+                              IconButton(
+                                icon: Icon(
+                                  iguessliked
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color: Colors.green,
+                                  size: 30,
+                                ),
+                                onPressed: () {
+                                  iguessLiked();
+                                  fetchiguesslikeStatus();
+                                },
+                              ),
+                            ],
+                          ),
                           SizedBox(
                             height: 50,
                           ),
@@ -1310,21 +1482,32 @@ class _KR$NAPlaylistState extends State<KR$NAPlaylist> {
                               SizedBox(
                                 width: 5,
                               ),
-                              Image(image: NetworkImage('https://i.scdn.co/image/ab67616d0000b2734c6edea22082734e5683c7b9',
-                              ),
+                              Image(
+                                image: NetworkImage(
+                                  'https://i.scdn.co/image/ab67616d0000b2734c6edea22082734e5683c7b9',
+                                ),
                                 height: 100,
                                 width: 100,
                               ),
-
-                              TextButton(onPressed: ()async{
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => NoCap()));
-                              },
-                                  child:Text('No Cap\nKRSNA',style: TextStyle(color: Colors.black,
-                                      fontWeight: FontWeight.bold),)),
+                              TextButton(
+                                  onPressed: () async {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => NoCap()));
+                                  },
+                                  child: Text(
+                                    'No Cap\nKRSNA',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  )),
                               Spacer(),
                               IconButton(
                                 icon: Icon(
-                                  nocapliked ? Icons.favorite : Icons.favorite_border,
+                                  nocapliked
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
                                   color: Colors.green,
                                   size: 30,
                                 ),

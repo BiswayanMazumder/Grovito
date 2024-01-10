@@ -3,15 +3,40 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:palette_generator/palette_generator.dart';
+import 'package:whatscall/Hola%20Amigo.dart';
 import 'package:whatscall/Homepage.dart';
+import 'package:whatscall/Jamal%20Kuttu.dart';
+import 'package:whatscall/Maharani%20Arpit%20Bala.dart';
 import 'package:whatscall/Strings.dart';
 import 'package:whatscall/art_work_image.dart';
 import 'package:whatscall/colors.dart';
 import 'package:whatscall/lyrics_page.dart';
+import 'package:whatscall/machayenge%204.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 import 'package:whatscall/music.dart';
 import 'package:spotify/spotify.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:math';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Khattaflow(),
+      routes: {
+        '/HolaAmigo': (context) => const HolaAmigo(),
+        '/OneLove': (context) => const OneLove(),
+        '/Machayenge4': (context) => const Machayenge4(),
+        '/Maharani_Arpit': (context) => const Maharani_Arpit(),
+      },
+    );
+  }
+}
+
 class Khattaflow extends StatefulWidget {
   const Khattaflow({super.key});
 
@@ -28,9 +53,16 @@ class _KhattaflowState extends State<Khattaflow> {
     player.dispose();
     super.dispose();
   }
+
   bool isLiked = false;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final List<String> songs = [
+    'HolaAmigo',
+    'OneLove',
+    'Machayenge4',
+    'Maharani_Arpit',
+  ];
   Future<void> khattaflowLiked() async {
     final user = _auth.currentUser;
 
@@ -60,19 +92,24 @@ class _KhattaflowState extends State<Khattaflow> {
       }
     }
   }
-  bool isprem=false;
-  Future<void> PremSubs() async{
-    final user=_auth.currentUser;
-    if(user!=null){
-      final docsnap=await _firestore.collection('Payments for Premium').doc(user.uid).get();
-      if(docsnap.exists){
+
+  bool isprem = false;
+  Future<void> PremSubs() async {
+    final user = _auth.currentUser;
+    if (user != null) {
+      final docsnap = await _firestore
+          .collection('Payments for Premium')
+          .doc(user.uid)
+          .get();
+      if (docsnap.exists) {
         setState(() {
-          isprem=true;
+          isprem = true;
         });
         print(isprem);
       }
     }
   }
+
   @override
   void initState() {
     final credentials = SpotifyApiCredentials(
@@ -93,12 +130,15 @@ class _KhattaflowState extends State<Khattaflow> {
         }
         music.artistImage = track.artists?.first.images?.first.url;
         final yt = YoutubeExplode();
-        final video = (await yt.search.search("$tempSongName ${music.artistName??""}")).first;
+        final video =
+            (await yt.search.search("$tempSongName ${music.artistName ?? ""}"))
+                .first;
         final videoId = video.id.value;
         music.duration = video.duration;
         setState(() {});
         var manifest = await yt.videos.streamsClient.getManifest(videoId);
-        var audioUrl ='https://emkldzxxityxmjkxiggw.supabase.co/storage/v1/object/public/Grovito/Songs/Khattaflow';
+        var audioUrl =
+            'https://emkldzxxityxmjkxiggw.supabase.co/storage/v1/object/public/Grovito/Songs/Khattaflow';
         player.play(UrlSource(audioUrl.toString()));
       }
     });
@@ -106,6 +146,7 @@ class _KhattaflowState extends State<Khattaflow> {
     fetchLikeStatus();
     PremSubs();
   }
+
   Future<void> fetchLikeStatus() async {
     final user = _auth.currentUser;
 
@@ -124,9 +165,10 @@ class _KhattaflowState extends State<Khattaflow> {
       }
     }
   }
+
   Future<Color?> getImagePalette(ImageProvider imageProvider) async {
     final PaletteGenerator paletteGenerator =
-    await PaletteGenerator.fromImageProvider(imageProvider);
+        await PaletteGenerator.fromImageProvider(imageProvider);
     return paletteGenerator.dominantColor?.color;
   }
 
@@ -145,9 +187,14 @@ class _KhattaflowState extends State<Khattaflow> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  IconButton(onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) =>HomePage()));
-                  }, icon: Icon(Icons.close, color: Colors.transparent)),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomePage()));
+                      },
+                      icon: Icon(Icons.close, color: Colors.transparent)),
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -190,114 +237,158 @@ class _KhattaflowState extends State<Khattaflow> {
                   )),
               Expanded(
                   child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                music.songName ?? '',
-                                style: textTheme.titleLarge
-                                    ?.copyWith(color: Colors.white),
-                              ),
-                              Text(
-                                music.artistName ?? '-',
-                                style: textTheme.titleMedium
-                                    ?.copyWith(color: Colors.white60),
-                              ),
-                            ],
+                          Text(
+                            music.songName ?? '',
+                            style: textTheme.titleLarge
+                                ?.copyWith(color: Colors.white),
                           ),
-                          IconButton(
-                            icon: Icon(
-                              isLiked ? Icons.favorite : Icons.favorite_border,
-                              color: Colors.green,
-                              size: 30,
-                            ),
-                            onPressed: () {
-                              khattaflowLiked(); // Call the function when the icon is clicked
-                            },
+                          Text(
+                            music.artistName ?? '-',
+                            style: textTheme.titleMedium
+                                ?.copyWith(color: Colors.white60),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 16),
-                      StreamBuilder(
-                          stream: player.onPositionChanged,
-                          builder: (context, data) {
-                            return ProgressBar(
-                              progress: data.data ?? const Duration(seconds: 0),
-                              total: music.duration ?? const Duration(minutes: 4),
-                              bufferedBarColor: Colors.white38,
-                              baseBarColor: Colors.white10,
-                              thumbColor: Colors.white,
-                              timeLabelTextStyle:
-                              const TextStyle(color: Colors.white),
-                              progressBarColor: Colors.white,
-                              onSeek: (duration) {
-                                player.seek(duration);
-                              },
-                            );
-                          }),
-                      const SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            LyricsPage(music: music, player: player,)));
-                              },
-                              icon: const Icon(Icons.lyrics_outlined,
-                                  color: Colors.white)),
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.skip_previous,
-                                  color: Colors.white, size: 36)),
-                          IconButton(
-                              onPressed: () async {
-                                if (player.state == PlayerState.playing) {
-                                  await player.pause();
-                                } else {
-                                  await player.resume();
-                                }
-                                setState(() {});
-                              },
-                              icon: Icon(
-                                player.state == PlayerState.playing
-                                    ? Icons.pause
-                                    : Icons.play_circle,
-                                color: Colors.white,
-                                size: 60,
-                              )),
-                          IconButton(
-                              onPressed: () {
-                                if(!isprem){
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text('Sorry this feature is only for Premium Users'),
-                                      backgroundColor: Colors.red,
-                                    ),
-                                  );
-                                }
-                              },
-                              icon: Icon(Icons.skip_next,
-                                  color: isprem?Colors.white:Colors.grey, size: 36)),
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.loop,
-                                  color: CustomColors.primaryColor)),
-                        ],
-                      )
+                      IconButton(
+                        icon: Icon(
+                          isLiked ? Icons.favorite : Icons.favorite_border,
+                          color: Colors.green,
+                          size: 30,
+                        ),
+                        onPressed: () {
+                          khattaflowLiked(); // Call the function when the icon is clicked
+                        },
+                      ),
                     ],
-                  ))
+                  ),
+                  const SizedBox(height: 16),
+                  StreamBuilder(
+                      stream: player.onPositionChanged,
+                      builder: (context, data) {
+                        return ProgressBar(
+                          progress: data.data ?? const Duration(seconds: 0),
+                          total: music.duration ?? const Duration(minutes: 4),
+                          bufferedBarColor: Colors.white38,
+                          baseBarColor: Colors.white10,
+                          thumbColor: Colors.white,
+                          timeLabelTextStyle:
+                              const TextStyle(color: Colors.white),
+                          progressBarColor: Colors.white,
+                          onSeek: (duration) {
+                            if (isprem) {
+                              player.seek(duration);
+                            }
+                            if (!isprem) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                      'Sorry this feature is only for Premium Users'),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }
+                          },
+                        );
+                      }),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LyricsPage(
+                                          music: music,
+                                          player: player,
+                                        )));
+                          },
+                          icon: const Icon(Icons.lyrics_outlined,
+                              color: Colors.white)),
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.skip_previous,
+                              color: Colors.white, size: 36)),
+                      IconButton(
+                          onPressed: () async {
+                            if (player.state == PlayerState.playing) {
+                              await player.pause();
+                            } else {
+                              await player.resume();
+                            }
+                            setState(() {});
+                          },
+                          icon: Icon(
+                            player.state == PlayerState.playing
+                                ? Icons.pause
+                                : Icons.play_circle,
+                            color: Colors.white,
+                            size: 60,
+                          )),
+                      IconButton(
+                          onPressed: () {
+                            if (!isprem) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                      'Sorry this feature is only for Premium Users'),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }
+                            if (isprem) {
+                              int randomIndex =
+                                  Random().nextInt(4); // Now consider 4 pages
+                              String routeName = '';
+                              switch (randomIndex) {
+                                case 0:
+                                  routeName = '/HolaAmigo';
+                                  break;
+                                case 1:
+                                  routeName = '/OneLove';
+                                  break;
+                                case 2:
+                                  routeName = '/Machayenge4';
+                                  break;
+                                case 3:
+                                  routeName = '/Maharani_Arpit';
+                                  break;
+                              }
+
+                              Navigator.pushNamed(context, routeName);
+                            }
+                          },
+                          icon: Icon(Icons.skip_next,
+                              color: isprem ? Colors.white : Colors.grey,
+                              size: 36)),
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.loop,
+                              color: CustomColors.primaryColor)),
+                    ],
+                  )
+                ],
+              ))
             ],
           ),
         ),
       ),
     );
+  }
+
+  void navigateToRandomSong(BuildContext context) {
+    // Generate a random index to pick a random song page
+    int randomIndex = Random().nextInt(songs.length);
+
+    // Use Navigator to navigate to the selected random song page
+    Navigator.pushNamed(context, '/' + songs[randomIndex]);
   }
 }

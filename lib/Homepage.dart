@@ -814,6 +814,21 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  bool iguess = false;
+  Future<void> iguessurecentlylistended() async {
+    final user = _auth.currentUser;
+    final docsnap = await _firestore
+        .collection('Recently Listened I Guess')
+        .doc(user!.uid)
+        .get();
+    if (docsnap.exists) {
+      setState(() {
+        iguess = true;
+      });
+      print('iguess $jamalkuttulistened');
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -1250,12 +1265,20 @@ class _HomePageState extends State<HomePage> {
                       width: 20,
                     ),
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => IGuess(),
                             ));
+                        final user = _auth.currentUser;
+                        await _firestore
+                            .collection('Recently Listened I Guess')
+                            .doc(user!.uid)
+                            .set({
+                          'Listened': true,
+                          'TIme Of Listening': FieldValue.serverTimestamp(),
+                        });
                       },
                       style: ButtonStyle(
                           backgroundColor:
@@ -1901,7 +1924,8 @@ class _HomePageState extends State<HomePage> {
               ),
               if (khattaflowlistened ||
                   checkitoutlistened ||
-                  jamalkuttulistened)
+                  jamalkuttulistened ||
+                  iguess)
                 Column(
                   children: [
                     Align(
@@ -2044,9 +2068,51 @@ class _HomePageState extends State<HomePage> {
                               )
                             : CircularProgressIndicator(),
                       ),
+                    if (iguess)
+                      ElevatedButton(
+                        onPressed: () async {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => IGuess(),
+                              ));
+                        },
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll(Colors.black),
+                            elevation: MaterialStatePropertyAll(0)),
+                        child: albumCoverUrl4.isNotEmpty
+                            ? Column(
+                                children: [
+                                  CachedNetworkImage(
+                                    imageUrl: albumCoverUrl4,
+                                    width: 150, // Adjust the width as needed
+                                    height: 150,
+                                    placeholder: (context, url) => Center(
+                                        child: CircularProgressIndicator()),
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.error),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Text(
+                                    '$trackName4',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                  Text(
+                                    '$artistName4',
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.green),
+                                  ),
+                                ],
+                              )
+                            : CircularProgressIndicator(),
+                      ),
                   ],
                 ),
-              )
+              ),
+              SizedBox(
+                height: 50,
+              ),
             ],
           ),
         ));

@@ -14,6 +14,7 @@ import 'package:spotify/spotify.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+
 class Ykwim extends StatefulWidget {
   const Ykwim({super.key});
 
@@ -30,6 +31,7 @@ class _YkwimState extends State<Ykwim> {
     player.dispose();
     super.dispose();
   }
+
   bool isLiked = false;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -64,6 +66,23 @@ class _YkwimState extends State<Ykwim> {
     }
   }
 
+  bool isprem = false;
+  Future<void> PremSubs() async {
+    final user = _auth.currentUser;
+    if (user != null) {
+      final docsnap = await _firestore
+          .collection('Payments for Premium')
+          .doc(user.uid)
+          .get();
+      if (docsnap.exists) {
+        setState(() {
+          isprem = true;
+        });
+        print(isprem);
+      }
+    }
+  }
+
   @override
   void initState() {
     final credentials = SpotifyApiCredentials(
@@ -84,18 +103,23 @@ class _YkwimState extends State<Ykwim> {
         }
         music.artistImage = track.artists?.first.images?.first.url;
         final yt = YoutubeExplode();
-        final video = (await yt.search.search("$tempSongName ${music.artistName??""}")).first;
+        final video =
+            (await yt.search.search("$tempSongName ${music.artistName ?? ""}"))
+                .first;
         final videoId = video.id.value;
         music.duration = video.duration;
         setState(() {});
         var manifest = await yt.videos.streamsClient.getManifest(videoId);
-        var audioUrl ='https://emkldzxxityxmjkxiggw.supabase.co/storage/v1/object/public/Grovito/Songs/Ykwim.mp3';
+        var audioUrl =
+            'https://emkldzxxityxmjkxiggw.supabase.co/storage/v1/object/public/Grovito/Songs/Ykwim.mp3';
         player.play(UrlSource(audioUrl.toString()));
       }
     });
     super.initState();
     fetchLikeStatus();
+    PremSubs();
   }
+
   Future<void> fetchLikeStatus() async {
     final user = _auth.currentUser;
 
@@ -114,9 +138,10 @@ class _YkwimState extends State<Ykwim> {
       }
     }
   }
+
   Future<Color?> getImagePalette(ImageProvider imageProvider) async {
     final PaletteGenerator paletteGenerator =
-    await PaletteGenerator.fromImageProvider(imageProvider);
+        await PaletteGenerator.fromImageProvider(imageProvider);
     return paletteGenerator.dominantColor?.color;
   }
 
@@ -135,9 +160,14 @@ class _YkwimState extends State<Ykwim> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  IconButton(onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) =>HomePage()));
-                  }, icon: Icon(Icons.close, color: Colors.transparent)),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomePage()));
+                      },
+                      icon: Icon(Icons.close, color: Colors.transparent)),
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -180,101 +210,114 @@ class _YkwimState extends State<Ykwim> {
                   )),
               Expanded(
                   child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                music.songName ?? '',
-                                style: textTheme.titleLarge
-                                    ?.copyWith(color: Colors.white),
-                              ),
-                              Text(
-                                music.artistName ?? '-',
-                                style: textTheme.titleMedium
-                                    ?.copyWith(color: Colors.white60),
-                              ),
-                            ],
+                          Text(
+                            music.songName ?? '',
+                            style: textTheme.titleLarge
+                                ?.copyWith(color: Colors.white),
                           ),
-                          IconButton(
-                            icon: Icon(
-                              isLiked ? Icons.favorite : Icons.favorite_border,
-                              color: Colors.green,
-                              size: 30,
-                            ),
-                            onPressed: () {
-                              khattaflowLiked(); // Call the function when the icon is clicked
-                            },
+                          Text(
+                            music.artistName ?? '-',
+                            style: textTheme.titleMedium
+                                ?.copyWith(color: Colors.white60),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 16),
-                      StreamBuilder(
-                          stream: player.onPositionChanged,
-                          builder: (context, data) {
-                            return ProgressBar(
-                              progress: data.data ?? const Duration(seconds: 0),
-                              total: music.duration ?? const Duration(minutes: 4),
-                              bufferedBarColor: Colors.white38,
-                              baseBarColor: Colors.white10,
-                              thumbColor: Colors.white,
-                              timeLabelTextStyle:
-                              const TextStyle(color: Colors.white),
-                              progressBarColor: Colors.white,
-                              onSeek: (duration) {
-                                player.seek(duration);
-                              },
-                            );
-                          }),
-                      const SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            LyricsPage(music: music, player: player,)));
-                              },
-                              icon: const Icon(Icons.lyrics_outlined,
-                                  color: Colors.white)),
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.skip_previous,
-                                  color: Colors.white, size: 36)),
-                          IconButton(
-                              onPressed: () async {
-                                if (player.state == PlayerState.playing) {
-                                  await player.pause();
-                                } else {
-                                  await player.resume();
-                                }
-                                setState(() {});
-                              },
-                              icon: Icon(
-                                player.state == PlayerState.playing
-                                    ? Icons.pause
-                                    : Icons.play_circle,
-                                color: Colors.white,
-                                size: 60,
-                              )),
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.skip_next,
-                                  color: Colors.white, size: 36)),
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.loop,
-                                  color: CustomColors.primaryColor)),
-                        ],
-                      )
+                      IconButton(
+                        icon: Icon(
+                          isLiked ? Icons.favorite : Icons.favorite_border,
+                          color: Colors.green,
+                          size: 30,
+                        ),
+                        onPressed: () {
+                          khattaflowLiked(); // Call the function when the icon is clicked
+                        },
+                      ),
                     ],
-                  ))
+                  ),
+                  const SizedBox(height: 16),
+                  StreamBuilder(
+                      stream: player.onPositionChanged,
+                      builder: (context, data) {
+                        return ProgressBar(
+                          progress: data.data ?? const Duration(seconds: 0),
+                          total: music.duration ?? const Duration(minutes: 4),
+                          bufferedBarColor: Colors.white38,
+                          baseBarColor: Colors.white10,
+                          thumbColor: Colors.white,
+                          timeLabelTextStyle:
+                              const TextStyle(color: Colors.white),
+                          progressBarColor: Colors.white,
+                          onSeek: (duration) {
+                            if (isprem) {
+                              player.seek(duration);
+                            }
+                            if (!isprem) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                      'Sorry this feature is only for Premium Users'),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }
+                          },
+                        );
+                      }),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LyricsPage(
+                                          music: music,
+                                          player: player,
+                                        )));
+                          },
+                          icon: const Icon(Icons.lyrics_outlined,
+                              color: Colors.white)),
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.skip_previous,
+                              color: Colors.white, size: 36)),
+                      IconButton(
+                          onPressed: () async {
+                            if (player.state == PlayerState.playing) {
+                              await player.pause();
+                            } else {
+                              await player.resume();
+                            }
+                            setState(() {});
+                          },
+                          icon: Icon(
+                            player.state == PlayerState.playing
+                                ? Icons.pause
+                                : Icons.play_circle,
+                            color: Colors.white,
+                            size: 60,
+                          )),
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.skip_next,
+                              color: Colors.white, size: 36)),
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.loop,
+                              color: CustomColors.primaryColor)),
+                    ],
+                  )
+                ],
+              ))
             ],
           ),
         ),
