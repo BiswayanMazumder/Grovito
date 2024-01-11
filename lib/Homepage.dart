@@ -20,6 +20,7 @@ import 'package:whatscall/Jamal Kuttu.dart';
 import 'package:whatscall/profile.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:whatscall/search.dart';
 import 'package:whatscall/settings.dart';
 import 'package:whatscall/support_section.dart';
 
@@ -931,7 +932,8 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     children: [
                       // Existing stack for image/avatar
-                      Stack(children: [
+                      Stack(
+                          children: [
                         _uploading
                             ? CircularProgressIndicator(
                                 color: Colors.red,
@@ -952,7 +954,8 @@ class _HomePageState extends State<HomePage> {
                                     radius: 30,
                                     backgroundImage: NetworkImage(_imageUrl!),
                                   ),
-                      ]),
+                      ]
+                      ),
                       SizedBox(
                         height: 10,
                       ),
@@ -984,7 +987,9 @@ class _HomePageState extends State<HomePage> {
                   title: Row(
                     children: [
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage(),));
+                        },
                         child: Row(children: [
                           Icon(
                             Icons.flash_on,
