@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:whatscall/Bollywood_genre.dart';
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
 
@@ -129,22 +130,70 @@ class _SearchPageState extends State<SearchPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      print('hi');
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => BollywoodGenre(),));
+                    },
                     style: ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(Colors.black),
                     ),
-                    child: CachedNetworkImage(
-                      imageUrl:
-                      'https://emkldzxxityxmjkxiggw.supabase.co/storage/v1/object/public/Grovito/genres/',
-                      width: 100, // Adjust the width as needed
-                      height: 400, // Adjust the height as needed to make it long
-                      placeholder: (context, url) => Center(
-                        child: CircularProgressIndicator(),
+                    child: Stack(
+                      children: [
+                        CachedNetworkImage(
+                          imageUrl: 'https://emkldzxxityxmjkxiggw.supabase.co/storage/v1/object/public/Grovito/genres/',
+                          placeholder: (context, url) => Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                          errorWidget: (context, url, error) => Icon(Icons.error),
+                        ),
+                        Positioned(
+                          bottom: 30, // Adjust the position as needed
+                          left: 16, // Adjust the position as needed
+                          child: Text(
+                            '#bollywood',
+                            style: TextStyle(
+                              color: Colors.yellow,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ),
+                  SizedBox(width: 20,),
+                  ElevatedButton(
+                      onPressed: () {
+                        print('hi');
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStatePropertyAll(Colors.black),
                       ),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                    ),
-                  )
-
+                      child: Stack(
+                        children: [
+                          CachedNetworkImage(
+                            imageUrl: 'https://emkldzxxityxmjkxiggw.supabase.co/storage/v1/object/public/Grovito/genres/slowed.gif?t=2024-01-11T09%3A55%3A09.659Z',
+                            placeholder: (context, url) => Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                            errorWidget: (context, url, error) => Icon(Icons.error),
+                          ),
+                          Positioned(
+                            bottom: 30, // Adjust the position as needed
+                            left: 16, // Adjust the position as needed
+                            child: Text(
+                              '#slowed+reverb',
+                              style: TextStyle(
+                                color: Colors.yellow,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                  ),
+                  SizedBox(width: 20,),
                 ],
               ),
             )
