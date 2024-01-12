@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:whatscall/Homepage.dart';
 import 'package:whatscall/loginpage.dart';
+import 'package:whatscall/navbar.dart';
 import 'package:whatscall/phonelogin.dart';
 import 'package:whatscall/signup.dart';
 import 'firebase_options.dart';
@@ -46,7 +47,7 @@ class _MyAppState extends State<MyApp> {
           splash: Image.network('https://firebasestorage.googleapis.com/v0/b/hangouts-b50'
               'ce.appspot.com/o/QuantumHarmony%2F172876e3ef491d0bd9e9de1b0ded5233-removebg-preview.pn'
               'g?alt=media&token=e485aaf3-030e-43f0-afe1-b5ca39c7e861'),
-          nextScreen: user!=null? HomePage():LoginPage(),
+          nextScreen: user!=null? NavBar():LoginPage(),
           splashTransition: SplashTransition.fadeTransition,
           backgroundColor: Colors.green));
   }

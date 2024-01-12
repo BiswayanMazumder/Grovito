@@ -93,33 +93,38 @@ class _SearchPageState extends State<SearchPage> {
             SizedBox(
               height: 30,
             ),
-            ElevatedButton(
-              onPressed: () {
-                print('hi');
-                // Navigator.push(context, MaterialPageRoute(builder: (context) => BollywoodGenre(),));
-              },
-              style: ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(Colors.white),
-              ),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Icon(Icons.search, color: Colors.black),
-                      SizedBox(width: 8),
-                      Text(
-                        'What do you want to listen to?',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => SearchPage(),
+            //       ),
+            //     );
+            //
+            //   },
+            //   style: ButtonStyle(
+            //     backgroundColor: MaterialStatePropertyAll(Colors.white),
+            //   ),
+            //   child: Container(
+            //     decoration: BoxDecoration(
+            //       border: Border.all(color: Colors.white),
+            //     ),
+            //     child: Padding(
+            //       padding: const EdgeInsets.all(8.0),
+            //       child: Row(
+            //         children: [
+            //           Icon(Icons.search, color: Colors.black),
+            //           SizedBox(width: 8),
+            //           Text(
+            //             'What do you want to listen to?',
+            //             style: TextStyle(color: Colors.black),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
             SizedBox(
               height: 25,
             ),

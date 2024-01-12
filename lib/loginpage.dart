@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:whatscall/Homepage.dart';
+import 'package:whatscall/navbar.dart';
 import 'package:whatscall/profile.dart';
 import 'package:device_info/device_info.dart';
 import 'package:http/http.dart' as http;
@@ -102,7 +103,7 @@ class _loginpageState extends State<loginpage> {
       }
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => NavBar()),
       );
     }catch(e){
       ScaffoldMessenger.of(context).showSnackBar(
@@ -138,7 +139,7 @@ class _loginpageState extends State<loginpage> {
         // Navigate to the next screen if the link is verified
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomePage()),
+          MaterialPageRoute(builder: (context) => NavBar()),
         );
       } else {
         // Handle the case where the link is not verified

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:whatscall/Homepage.dart';
 import 'package:whatscall/myprofile.dart';
+import 'package:whatscall/navbar.dart';
 import 'package:whatscall/profile.dart';
 
 class Phone extends StatefulWidget {
@@ -72,7 +73,7 @@ class _PhoneState extends State<Phone> {
         // Navigate to the page for existing users
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomePage()),
+          MaterialPageRoute(builder: (context) => NavBar()),
         );
       }
     } catch (e) {
