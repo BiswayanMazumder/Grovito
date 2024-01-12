@@ -93,22 +93,33 @@ class _SearchPageState extends State<SearchPage> {
             SizedBox(
               height: 30,
             ),
-            ElevatedButton(onPressed: (){},
-                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.black)),
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white)
+            ElevatedButton(
+              onPressed: () {
+                print('hi');
+                Navigator.push(context, MaterialPageRoute(builder: (context) => BollywoodGenre(),));
+              },
+              style: ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(Colors.white),
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Icon(Icons.search, color: Colors.black),
+                      SizedBox(width: 8),
+                      Text(
+                        'What do you want to listen to?',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ],
                   ),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      hintText: 'What do you want to listen to?',
-                      hintStyle: TextStyle(color: Colors.black),
-                      prefixIcon: Icon(Icons.search,color: Colors.black,)
-                    ),
-                  ),
-                )),
+                ),
+              ),
+            ),
             SizedBox(
               height: 25,
             ),
