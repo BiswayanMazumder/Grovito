@@ -826,10 +826,37 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         iguess = true;
       });
-      print('iguess $jamalkuttulistened');
+      print('iguess $iguess');
     }
   }
-
+  bool kalaastar=false;
+  Future<void> kalaastarrecentlylistended() async {
+    final user = _auth.currentUser;
+    final docsnap = await _firestore
+        .collection('Kalaastar Recently Listened')
+        .doc(user!.uid)
+        .get();
+    if (docsnap.exists) {
+      setState(() {
+        kalaastar = true;
+      });
+      print('Kalaastar $kalaastar');
+    }
+  }
+  bool maharani=false;
+  Future<void> maharanirecentlylistended() async {
+    final user = _auth.currentUser;
+    final docsnap = await _firestore
+        .collection('Maharani Recently Listened')
+        .doc(user!.uid)
+        .get();
+    if (docsnap.exists) {
+      setState(() {
+        kalaastar = true;
+      });
+      print('Maharani $maharani');
+    }
+  }
   @override
   void initState() {
     super.initState();
@@ -858,6 +885,9 @@ class _HomePageState extends State<HomePage> {
     khattaflowrecentlylistended();
     checkitoutrecentlylistended();
     jamalkutturecentlylistended();
+    iguessurecentlylistended();
+    kalaastarrecentlylistended();
+    maharanirecentlylistended();
   }
 
   @override
@@ -1319,7 +1349,13 @@ class _HomePageState extends State<HomePage> {
                       width: 10,
                     ),
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: ()async{
+                        final user=_auth.currentUser;
+                        await _firestore.collection('Kalaastar Recently Listened').doc(user!.uid).set(
+                            {
+                              'Kalaastar':true,
+                              'Time Of Hearing':FieldValue.serverTimestamp()
+                            });
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -1359,7 +1395,13 @@ class _HomePageState extends State<HomePage> {
                       width: 10,
                     ),
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: ()async{
+                        final user=_auth.currentUser;
+                        await _firestore.collection('Maharani Recently Listened').doc(user!.uid).set(
+                            {
+                              'Maharani Listened':true,
+                              'Time Of Listening':FieldValue.serverTimestamp()
+                            });
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -2110,6 +2152,83 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ],
                               )
+                            : CircularProgressIndicator(),
+                      ),
+                    if(kalaastar)
+                      ElevatedButton(
+                        onPressed: ()async{
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Kalaastar()));
+                        },
+                        style: ButtonStyle(
+                            backgroundColor:
+                            MaterialStatePropertyAll(Colors.black),
+                            elevation: MaterialStatePropertyAll(0)),
+                        child: albumCoverUrl5.isNotEmpty
+                            ? Column(
+                          children: [
+                            CachedNetworkImage(
+                              imageUrl: albumCoverUrl5,
+                              width: 150, // Adjust the width as needed
+                              height: 150,
+                              placeholder: (context, url) => Center(
+                                  child: CircularProgressIndicator()),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            ),
+                            SizedBox(height: 10),
+                            Text(
+                              '$trackName5',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            Text(
+                              '$artistName5',
+                              style: TextStyle(
+                                  fontSize: 12, color: Colors.green),
+                            ),
+                          ],
+                        )
+                            : CircularProgressIndicator(),
+                      ),
+                    if(maharani)
+                      ElevatedButton(
+                        onPressed: ()async{
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Maharani_Arpit(),
+                              ));
+                        },
+                        style: ButtonStyle(
+                            backgroundColor:
+                            MaterialStatePropertyAll(Colors.black),
+                            elevation: MaterialStatePropertyAll(0)),
+                        child: albumCoverUrl6.isNotEmpty
+                            ? Column(
+                          children: [
+                            CachedNetworkImage(
+                              imageUrl: albumCoverUrl6,
+                              width: 150, // Adjust the width as needed
+                              height: 150,
+                              placeholder: (context, url) => Center(
+                                  child: CircularProgressIndicator()),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            ),
+                            SizedBox(height: 10),
+                            Text(
+                              '$trackName6',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            Text(
+                              '$artistName6',
+                              style: TextStyle(
+                                  fontSize: 12, color: Colors.green),
+                            ),
+                          ],
+                        )
                             : CircularProgressIndicator(),
                       ),
                   ],

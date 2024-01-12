@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:flutter/cupertino.dart';
 class BollywoodGenre extends StatefulWidget {
   @override
   _BollywoodGenreState createState() => _BollywoodGenreState();
@@ -19,6 +19,7 @@ class _BollywoodGenreState extends State<BollywoodGenre> {
     'https://emkldzxxityxmjkxiggw.supabase.co/storage/v1/object/public/Grovito/genres/baarishein.mp4',
     'https://emkldzxxityxmjkxiggw.supabase.co/storage/v1/object/public/Grovito/Kala%20Chashma%20Baar%20Baar%20Dekho%20Sidharth%20M%20Katrina%20K%20Prem,%20Hardeep,%20Badshah,%20Kam,%20Neha,%20Indeep.mkv?t=2024-01-12T09%3A34%3A30.892Z'
   ];
+  bool _isVisible = true;
 
   List<String> songNames = [
     'Laat Lag Gayi',
@@ -41,6 +42,11 @@ class _BollywoodGenreState extends State<BollywoodGenre> {
   void initState() {
     super.initState();
     _initializeController(_currentVideoIndex);
+    Future.delayed(Duration(seconds: 5), () {
+      setState(() {
+        _isVisible = false;
+      });
+    });
   }
 
   void _initializeController(int videoIndex) {
@@ -103,7 +109,7 @@ class _BollywoodGenreState extends State<BollywoodGenre> {
       }, SetOptions(merge: true));
     }
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,6 +136,24 @@ class _BollywoodGenreState extends State<BollywoodGenre> {
                 _initializeController(_currentVideoIndex + 1);
               }
             },
+            onTap: () {
+              setState(() {
+                _isMuted = !_isMuted;
+                _controller.setVolume(_isMuted ? 0.0 : 1.0);
+                _isVisible = true; // Show the icon when tapped
+              });
+
+              // Delay to hide the icon after 5 seconds
+              Future.delayed(Duration(seconds: 5), () {
+                setState(() {
+                  Icon(CupertinoIcons.volume_mute);
+                  _isVisible = false;
+                });
+              });
+
+            },
+
+
             onDoubleTap: () {
               // Handle double-tap (like functionality)
               setState(() {
@@ -176,48 +200,44 @@ class _BollywoodGenreState extends State<BollywoodGenre> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                IconButton(
-                  icon: Icon(
-                    Icons.thumb_up,
-                    color: _liked ? Colors.white : null,
-                    size: 30,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _liked = !_liked;
-                      if (_disliked) _disliked = false; // Dislike is mutually exclusive
-                    });
-                    _saveUserReaction(_currentVideoIndex);
-                  },
+                Column(
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        _liked?CupertinoIcons.heart_fill:CupertinoIcons.heart,
+                        color: _liked ? Colors.red : Colors.white,
+                        size: 30,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _liked = !_liked;
+                          if (_disliked) _disliked = false; // Dislike is mutually exclusive
+                        });
+                        _saveUserReaction(_currentVideoIndex);
+                      },
+                    ),
+                    Text('Like',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)
+                  ],
                 ),
                 SizedBox(height: 20),
-                IconButton(
-                  icon: Icon(
-                    Icons.thumb_down,
-                    color: _disliked ? Colors.white : null,
-                    size: 30,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _disliked = !_disliked;
-                      if (_liked) _liked = false; // Like is mutually exclusive
-                    });
-                    _saveUserReaction(_currentVideoIndex);
-                  },
-                ),
-                SizedBox(height: 20),
-                IconButton(
-                  icon: Icon(
-                    _isMuted ? Icons.volume_off : Icons.volume_up,
-                    color: _isMuted ? Colors.white : Colors.white,
-                    size: 30,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _isMuted = !_isMuted;
-                      _controller.setVolume(_isMuted ? 0.0 : 1.0);
-                    });
-                  },
+                Column(
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        _disliked?CupertinoIcons.heart_slash_fill:CupertinoIcons.heart_slash,
+                        color: _disliked ? Colors.red : Colors.white,
+                        size: 30,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _disliked = !_disliked;
+                          if (_liked) _liked = false; // Like is mutually exclusive
+                        });
+                        _saveUserReaction(_currentVideoIndex);
+                      },
+                    ),
+                    Text('Dislike',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)
+                  ],
                 ),
               ],
             ),

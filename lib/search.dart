@@ -96,7 +96,7 @@ class _SearchPageState extends State<SearchPage> {
             ElevatedButton(
               onPressed: () {
                 print('hi');
-                Navigator.push(context, MaterialPageRoute(builder: (context) => BollywoodGenre(),));
+                // Navigator.push(context, MaterialPageRoute(builder: (context) => BollywoodGenre(),));
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(Colors.white),
